@@ -15,7 +15,6 @@ function displayResult() {
       const text = button.textContent;
       display.textContent += text;
 
-      // TODO: display math operation
       if (text === "=") {
         result = operate(operatorOne, operand, operatorTwo);
         display.textContent = result;
@@ -26,14 +25,14 @@ function displayResult() {
         return;
       }
       if (operands.includes(text)) {
+        // 1) if clicks grab the first part of the string and store in the first operator
+        operatorOne = Number(display.textContent.slice(0, -1));
+        // 2) assign the current value to the operand variable
         operand = text;
+        // 3) keep the current value displayed in the screen
+        display.textContent = operatorOne;
+        // 4) increase variable operation to count the numbers of operations
         operation++;
-      } else if (operation < 1) {
-        let operators = display.textContent.split(operand);
-        operatorOne = Number(operators[0]);
-        operatorTwo = Number(operators[1]);
-      } else {
-        temp = operate(operatorOne, operand, operatorTwo);
       }
     });
   });
