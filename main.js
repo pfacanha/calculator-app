@@ -1,18 +1,21 @@
 const calculator = document.querySelector("#calculator");
 const display = document.querySelector(".display");
 const buttons = calculator.querySelectorAll("button");
-let operatorOne = "";
-let operatorTwo = "";
-let operand = "";
 
 function displayResult() {
+  let operatorOne = "";
+  let operatorTwo = "";
+  let operand = "";
   let operands = ["+", "-", "*", "/"];
   let result;
+  let operation = 0;
 
   buttons.forEach((button) => {
     button.addEventListener("click", function () {
       const text = button.textContent;
-      // TODO: display operation in the display <div>
+      display.textContent += text;
+
+      // TODO: display math operation
       if (text === "=") {
         result = operate(operatorOne, operand, operatorTwo);
         display.textContent = result;
@@ -22,13 +25,15 @@ function displayResult() {
         display.textContent = "";
         return;
       }
-      display.textContent += text;
       if (operands.includes(text)) {
         operand = text;
-      } else {
+        operation++;
+      } else if (operation < 1) {
         let operators = display.textContent.split(operand);
         operatorOne = Number(operators[0]);
         operatorTwo = Number(operators[1]);
+      } else {
+        temp = operate(operatorOne, operand, operatorTwo);
       }
     });
   });
