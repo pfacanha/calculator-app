@@ -65,6 +65,9 @@ displayResult();
 
 function calculateResult(operatorOne, operand, operatorTwo) {
   res = operate(Number(operatorOne), operand, Number(operatorTwo));
+  if (res % 1 !== 0) {
+    res = res.toFixed(2);
+  }
   return res;
 }
 
