@@ -8,12 +8,11 @@ function displayResult() {
   let operand = "";
   let operands = ["+", "-", "*", "/"];
   let result;
-  let operation = 0;
+  let operations = 0;
 
   buttons.forEach((button) => {
     button.addEventListener("click", function () {
       const text = button.textContent;
-      display.textContent += text;
 
       if (text === "=") {
         result = operate(operatorOne, operand, operatorTwo);
@@ -25,14 +24,14 @@ function displayResult() {
         return;
       }
       if (operands.includes(text)) {
-        // 1) if clicks grab the first part of the string and store in the first operator
         operatorOne = Number(display.textContent.slice(0, -1));
-        // 2) assign the current value to the operand variable
-        operand = text;
-        // 3) keep the current value displayed in the screen
+        console.log("operator one is: ", operatorOne);
         display.textContent = operatorOne;
-        // 4) increase variable operation to count the numbers of operations
-        operation++;
+        operand = text;
+        console.log("operand is: ", operand);
+        operations++;
+      } else {
+        display.textContent += text;
       }
     });
   });
