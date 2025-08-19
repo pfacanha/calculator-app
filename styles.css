@@ -12,6 +12,7 @@ html {
 
 .display {
   background-color: yellow;
+  border: 1px solid lightgrey;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -34,7 +35,7 @@ html {
 #wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 1100px;
+  max-width: 600px;
   height: 80vh;
   margin: 0 auto;
   padding: 10px;
