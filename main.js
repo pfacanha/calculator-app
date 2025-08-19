@@ -42,7 +42,7 @@ function displayResult() {
         }
       }
 
-      if (numbers.includes(text)) {
+      if (numbers.includes(text) || text === ".") {
         if (operand) {
           operatorTwo += text;
           display.textContent = operatorTwo;
@@ -52,7 +52,6 @@ function displayResult() {
         }
       }
 
-      console.log("content length is : ", content.length);
       console.log("display.textContent is: ", display.textContent);
       console.log("operatorOne is: ", operatorOne);
       console.log("operand is: ", operand);
