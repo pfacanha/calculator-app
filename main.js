@@ -34,11 +34,12 @@ function displayResult() {
       if (operands.includes(text)) {
         if (operandFound) {
           let res = calculateResult(operatorOne, operand, operatorTwo);
+          display.textContent = res;
+
           operand = text;
-          operatorOne = res;
+          operatorOne = String(res);
           operatorTwo = "";
           operandFound = true;
-          display.textContent = res;
         } else {
           operand = text;
           operandFound = true;
