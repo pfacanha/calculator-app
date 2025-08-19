@@ -1,3 +1,4 @@
+// main.js
 const calculator = document.querySelector("#calculator");
 const display = document.querySelector(".display");
 const buttons = calculator.querySelectorAll("button");
@@ -8,8 +9,6 @@ let operand = "";
 let operands = ["+", "-", "*", "/"];
 let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let operandFound = false;
-let content = "";
-let result;
 
 function displayResult() {
   buttons.forEach((button) => {
@@ -17,8 +16,13 @@ function displayResult() {
       let text = button.textContent;
 
       if (text === "=") {
-        res = calculateResult(operatorOne, operand, operatorTwo);
+        let res = calculateResult(operatorOne, operand, operatorTwo);
         display.textContent = res;
+
+        operatorOne = String(res);
+        operatorTwo = "";
+        operand = "";
+        operandFound = false;
         return;
       }
 
@@ -29,7 +33,7 @@ function displayResult() {
 
       if (operands.includes(text)) {
         if (operandFound) {
-          res = calculateResult(operatorOne, operand, operatorTwo);
+          let res = calculateResult(operatorOne, operand, operatorTwo);
           operand = text;
           operatorOne = res;
           operatorTwo = "";
@@ -64,7 +68,7 @@ function displayResult() {
 displayResult();
 
 function calculateResult(operatorOne, operand, operatorTwo) {
-  res = operate(Number(operatorOne), operand, Number(operatorTwo));
+  let res = operate(Number(operatorOne), operand, Number(operatorTwo)); // ← local
   if (res % 1 !== 0) {
     res = res.toFixed(2);
   }
@@ -75,8 +79,8 @@ function clearInput() {
   display.textContent = "";
   operatorOne = "";
   operatorTwo = "";
-  content = "";
-  result = "";
+  operand = "";
+  operandFound = false;
 }
 
 function operate(operatorOne, operand, operatorTwo) {
