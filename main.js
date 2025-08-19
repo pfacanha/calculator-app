@@ -2,59 +2,101 @@ const calculator = document.querySelector("#calculator");
 const display = document.querySelector(".display");
 const buttons = calculator.querySelectorAll("button");
 
-function displayResult() {
-  let operatorOne = "";
-  let operatorTwo = "";
-  let operand = "";
-  let operands = ["+", "-", "*", "/"];
-  let result;
-  let operations = 0;
+let operatorOne = "";
+let operatorTwo = "";
+let operand = "";
+let operands = ["+", "-", "*", "/"];
+let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let operandFound = false;
+let content = "";
+let result;
 
+function displayResult() {
   buttons.forEach((button) => {
     button.addEventListener("click", function () {
-      const text = button.textContent;
-      display.textContent += text;
+      let text = button.textContent;
 
       if (text === "=") {
-        result = operate(operatorOne, operand, operatorTwo);
-        display.textContent = result;
+        res = calculateResult(operatorOne, operand, operatorTwo);
+        display.textContent = res;
         return;
       }
+
       if (text === "C") {
-        display.textContent = "";
+        clearInput();
         return;
       }
-      if (operations >= 1) {
-        operatorTwo += text;
-        console.log("operator two: ", operatorTwo);
-        display.textContent = operatorTwo;
-      } else if (operands.includes(text) && operations < 1) {
-        operatorOne = display.textContent.slice(0, -1);
-        console.log("operator one is: ", operatorOne);
-        operand = text;
-        console.log("operand is: ", operand);
-        display.textContent = operatorOne;
-        operations++;
+
+      if (operands.includes(text)) {
+        if (operandFound) {
+          res = calculateResult(operatorOne, operand, operatorTwo);
+          operand = text;
+          operatorOne = res;
+          operatorTwo = "";
+          operandFound = true;
+          display.textContent = res;
+        } else {
+          operand = text;
+          operandFound = true;
+          text = "";
+        }
       }
+
+      if (numbers.includes(text)) {
+        if (operand) {
+          operatorTwo += text;
+          display.textContent = operatorTwo;
+        } else {
+          operatorOne += text;
+          display.textContent = operatorOne;
+        }
+      }
+
+      console.log("content length is : ", content.length);
+      console.log("display.textContent is: ", display.textContent);
+      console.log("operatorOne is: ", operatorOne);
+      console.log("operand is: ", operand);
+      console.log("operatorTwo is: ", operatorTwo);
+      console.log("operandFound is: ", operandFound);
     });
   });
 }
+
 displayResult();
+
+function calculateResult(operatorOne, operand, operatorTwo) {
+  res = operate(Number(operatorOne), operand, Number(operatorTwo));
+  return res;
+}
+
+function clearInput() {
+  display.textContent = "";
+  operatorOne = "";
+  operatorTwo = "";
+  content = "";
+  result = "";
+}
 
 function operate(operatorOne, operand, operatorTwo) {
   let res;
-  if (operand === "+") {
-    res = add(operatorOne, operatorTwo);
+
+  switch (operand) {
+    case "+":
+      res = add(operatorOne, operatorTwo);
+      break;
+    case "-":
+      res = subtract(operatorOne, operatorTwo);
+      break;
+    case "*":
+      res = multiply(operatorOne, operatorTwo);
+      break;
+    case "/":
+      res = divide(operatorOne, operatorTwo);
+      break;
+    default:
+      res = null;
   }
-  if (operand === "-") {
-    res = subtract(operatorOne, operatorTwo);
-  }
-  if (operand === "*") {
-    res = multiply(operatorOne, operatorTwo);
-  }
-  if (operand === "/") {
-    res = divide(operatorOne, operatorTwo);
-  }
+
   return res;
 }
 
