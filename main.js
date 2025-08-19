@@ -16,10 +16,13 @@ function displayResult() {
       let text = button.textContent;
 
       if (text === "=") {
+        if (!operatorOne || !operatorTwo) {
+          return;
+        }
         let res = calculateResult(operatorOne, operand, operatorTwo);
         display.textContent = res;
 
-        operatorOne = String(res);
+        operatorOne = res === 0 ? "" : String(res);
         operatorTwo = "";
         operand = "";
         operandFound = false;
