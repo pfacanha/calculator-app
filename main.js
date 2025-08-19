@@ -13,6 +13,7 @@ function displayResult() {
   buttons.forEach((button) => {
     button.addEventListener("click", function () {
       const text = button.textContent;
+      display.textContent += text;
 
       if (text === "=") {
         result = operate(operatorOne, operand, operatorTwo);
@@ -23,15 +24,17 @@ function displayResult() {
         display.textContent = "";
         return;
       }
-      if (operands.includes(text)) {
-        operatorOne = Number(display.textContent.slice(0, -1));
+      if (operations >= 1) {
+        operatorTwo += text;
+        console.log("operator two: ", operatorTwo);
+        display.textContent = operatorTwo;
+      } else if (operands.includes(text) && operations < 1) {
+        operatorOne = display.textContent.slice(0, -1);
         console.log("operator one is: ", operatorOne);
-        display.textContent = operatorOne;
         operand = text;
         console.log("operand is: ", operand);
+        display.textContent = operatorOne;
         operations++;
-      } else {
-        display.textContent += text;
       }
     });
   });
