@@ -6,7 +6,7 @@ const buttons = calculator.querySelectorAll("button");
 let operandOne = "";
 let operandTwo = "";
 let operator = "";
-let operands = ["+", "-", "*", "/"];
+let operators = ["+", "-", "*", "/"];
 let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let operatorFound = false;
 
@@ -34,7 +34,7 @@ function displayResult() {
         return;
       }
 
-      if (operands.includes(text)) {
+      if (operators.includes(text)) {
         if (operatorFound) {
           let res = calculateResult(operandOne, operator, operandTwo);
           display.textContent = res;
