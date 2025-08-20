@@ -8,7 +8,7 @@ let operandTwo = "";
 let operator = "";
 let operands = ["+", "-", "*", "/"];
 let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-let operandFound = false;
+let operatorFound = false;
 
 function displayResult() {
   buttons.forEach((button) => {
@@ -25,7 +25,7 @@ function displayResult() {
         operandOne = res === 0 ? "" : String(res);
         operandTwo = "";
         operator = "";
-        operandFound = false;
+        operatorFound = false;
         return;
       }
 
@@ -35,17 +35,17 @@ function displayResult() {
       }
 
       if (operands.includes(text)) {
-        if (operandFound) {
+        if (operatorFound) {
           let res = calculateResult(operandOne, operator, operandTwo);
           display.textContent = res;
 
           operator = text;
           operandOne = String(res);
           operandTwo = "";
-          operandFound = true;
+          operatorFound = true;
         } else {
           operator = text;
-          operandFound = true;
+          operatorFound = true;
           text = "";
         }
       }
@@ -64,7 +64,7 @@ function displayResult() {
       console.log("operandOne is: ", operandOne);
       console.log("operator is: ", operator);
       console.log("operandTwo is: ", operandTwo);
-      console.log("operandFound is: ", operandFound);
+      console.log("operatorFound is: ", operatorFound);
     });
   });
 }
@@ -84,7 +84,7 @@ function clearInput() {
   operandOne = "";
   operandTwo = "";
   operator = "";
-  operandFound = false;
+  operatorFound = false;
 }
 
 function operate(operandOne, operator, operandTwo) {
